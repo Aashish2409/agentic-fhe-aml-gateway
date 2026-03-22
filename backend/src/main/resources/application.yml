@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: agentic-ope-aml-gateway
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Set GROQ_API_KEY as environment variable — never hardcode keys!
+groq:
+  api:
+    key: ${GROQ_API_KEY:your-groq-key-here}
+
+fhe:
+  service:
+    mode: mock
+    threshold-label: THRESHOLD_ENC_XYZ
+    mock-delay-ms: 50
+
+aml:
+  rules:
+    high-risk-levels:
+      - HIGH
+      - CRITICAL
+    auto-safe-levels:
+      - LOW
+
+logging:
+  level:
+    com.aml: DEBUG
+    dev.langchain4j: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

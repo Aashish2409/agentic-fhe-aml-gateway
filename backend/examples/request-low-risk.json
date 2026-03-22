@@ -1,0 +1,7 @@
+{
+  "_comment": "Example 2: LOW risk transaction — fast-path SAFE, no FHE check performed",
+  "originAccount": "ACC-456",
+  "timestamp": "2026-01-10T09:30:00",
+  "riskLevel": "LOW",
+  "ciphertextAmount": "ENC_DEF456"
+}

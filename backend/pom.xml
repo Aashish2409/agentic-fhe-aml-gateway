@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- =========================================================
+         Project Coordinates
+         ========================================================= -->
+    <groupId>com.aml</groupId>
+    <artifactId>agentic-fhe-aml-gateway</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Agentic-FHE AML Gateway</name>
+    <description>
+        Privacy-preserving Anti-Money Laundering gateway combining
+        Fully Homomorphic Encryption (FHE) with Agentic AI orchestration.
+        Transactions are analyzed without ever decrypting sensitive amounts.
+    </description>
+
+    <!-- =========================================================
+         Spring Boot Parent — manages dependency versions
+         ========================================================= -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.1</version>
+        <relativePath/>
+    </parent>
+
+    <!-- =========================================================
+         Java 21 (required for LangChain4j and modern Spring Boot)
+         ========================================================= -->
+    <properties>
+        <java.version>21</java.version>
+        <langchain4j.version>0.36.2</langchain4j.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- =====================================================
+             Spring Boot Web — REST API layer
+             ===================================================== -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- =====================================================
+             Spring Boot Validation — request validation
+             ===================================================== -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- =====================================================
+             LangChain4j Core — AI agent framework
+             Provides: @AiService, AiServices, ChatLanguageModel
+             ===================================================== -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
+
+        <!-- =====================================================
+             LangChain4j Spring Boot Starter — auto-configuration
+             ===================================================== -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-spring-boot-starter</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
+
+        <!-- =====================================================
+             LangChain4j OpenAI Integration — default LLM provider
+             Can be swapped for Anthropic, Ollama, etc.
+             ===================================================== -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
+
+        <!-- =====================================================
+             Lombok — boilerplate reduction (@Data, @Builder, etc.)
+             ===================================================== -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- =====================================================
+             Jackson — JSON serialization/deserialization
+             Already included via spring-boot-starter-web,
+             listed explicitly for clarity
+             ===================================================== -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- =====================================================
+             Jackson Java Time Module — LocalDateTime support
+             ===================================================== -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <!-- =====================================================
+             Spring Boot Test — test framework
+             ===================================================== -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- =====================================================
+             Mockito — mock dependencies in unit tests
+             ===================================================== -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin — enables mvn spring-boot:run -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,11 @@
+{
+  "_comment": "Response: LOW risk transaction — auto-approved, no FHE computation",
+  "verdict": "SAFE",
+  "message": "Low-risk transaction auto-approved — FHE check not required.",
+  "originAccount": "ACC-456",
+  "riskLevel": "LOW",
+  "fheCheckPerformed": false,
+  "fheResult": null,
+  "processedAt": "2026-01-10T09:30:00",
+  "gatewayVersion": "1.0.0"
+}
