@@ -42,28 +42,28 @@ The key property of OPE: `enc(a) > enc(b)` if and only if `a > b`. This means th
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                     Browser                                   │
+│                     Browser                                  │
 │                                                              │
-│  amount = ₹9,50,000                                         │
-│  enc    = (amount × 7919) + 123456789  ← OPE encrypt        │
+│  amount = ₹9,50,000                                          │
+│  enc    = (amount × 7919) + 123456789  ← OPE encrypt         │
 │  risk   = enc(amount) > enc(threshold) ← no plaintext        │
 │                                                              │
-│  POST { originAccount, timestamp, riskLevel, ciphertext }   │
+│  POST { originAccount, timestamp, riskLevel, ciphertext }    │
 │                         ↓ plaintext NEVER crosses this line  │
 └──────────────────────────────────────────────────────────────┘
                           ↓
 ┌──────────────────────────────────────────────────────────────┐
-│                  Spring Boot Gateway                          │
+│                  Spring Boot Gateway                         │
 │                                                              │
 │  AmlController                                               │
 │      ↓                                                       │
-│  ComplianceOrchestrator → AmlAgent (Groq Llama 70B)         │
+│  ComplianceOrchestrator → AmlAgent (Groq Llama 70B)          │
 │      ↓                                                       │
-│  Agent reasons over metadata + calls tools autonomously:    │
-│    • checkThresholdFhe(ciphertext) → OPE comparison         │
-│    • escalateForManualReview(account, reason)               │
+│  Agent reasons over metadata + calls tools autonomously:     │
+│    • checkThresholdFhe(ciphertext) → OPE comparison          │
+│    • escalateForManualReview(account, reason)                │
 │      ↓                                                       │
-│  Verdict: SAFE | FLAGGED | REVIEW + reason                  │
+│  Verdict: SAFE | FLAGGED | REVIEW + reason                   │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -119,24 +119,6 @@ cipher-aml/
 
 ---
 
-## Running Locally
-
-**Prerequisites:** Java 21+, Node.js 18+, free Groq API key from [console.groq.com](https://console.groq.com)
-
-```bash
-# Backend
-cd backend
-export GROQ_API_KEY=gsk_your_key   # or set in IntelliJ env vars
-mvn spring-boot:run                 # → localhost:8080
-
-# Frontend
-cd frontend
-npm install
-npm run dev                         # → localhost:3000
-```
-
----
-
 ## OPE — The Encryption Scheme
 
 ```
@@ -177,7 +159,7 @@ The CRITICAL risk tier maps directly to the RBI mandatory reporting threshold.
 
 **Velocity detection** — flag structuring: 5+ transactions in 7 days from the same identity, each just below threshold.
 
-**True FHE** — swap mock with Zama TFHE JNI for cryptographically rigorous guarantees.
+**True FHE** — implement Zama TFHE JNI for cryptographically rigorous guarantees.
 
 ---
 
